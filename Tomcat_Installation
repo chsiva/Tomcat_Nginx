@@ -1,0 +1,47 @@
+https://www.vultr.com/docs/how-to-install-apache-tomcat-8-on-centos-7
+    2  sudo yum install epel-release
+    3  sudo yum update -y && sudo reboot    
+    6  sh ./profile
+    7  systemctl restart tomcat
+    8  systemctl status tomcat
+    9  cd /opt/tomcat/
+   10  ll
+   11  cd conf/
+   12  ll
+   13  vi tomcat-users.xml  
+   17  sudo yum install java-1.8.0-openjdk.x86_64  
+   19  java -version
+   20  sudo groupadd tomcat
+   21  sudo mkdir /opt/tomcat
+   22  sudo useradd -s /bin/nologin -g tomcat -d /opt/tomcat tomcat  
+   24  cd ~   
+   26  yum install wget  
+   28  wget https://downloads.apache.org/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz
+   29  ll
+   30  sudo tar -zxvf apache-tomcat-8.5.54.tar.gz -C /opt/tomcat --strip-components=1
+   31  cd /opt/tomcat
+   32  sudo chgrp -R tomcat conf
+   33  sudo chmod g+rwx conf
+   34  sudo chmod g+r conf/*
+   35  sudo chown -R tomcat logs/ temp/ webapps/ work/
+   36  sudo chgrp -R tomcat bin
+   37  sudo chgrp -R tomcat lib
+   38  sudo chmod g+rwx bin
+   39  sudo chmod g+r bin/*
+   40  sudo vi /etc/systemd/system/tomcat.service
+   41  sudo yum install haveged
+   42  sudo systemctl start haveged.service
+   43  sudo systemctl enable haveged.service
+   44  sudo systemctl start tomcat.service
+   45  sudo systemctl enable tomcat.service   
+   49  netstat -ntpl
+   50  sudo vi /opt/tomcat/conf/tomcat-users.xml   # users add
+   51  sudo systemctl restart tomcat.service      
+   52  sudo vi /opt/tomcat/conf/tomcat-users.xml
+   53  sudo systemctl restart tomcat.service
+   54  sudo vi /opt/tomcat/conf/tomcat-users.xml
+   55  sudo systemctl restart tomcat.service   
+   60  sh ./profile
+       vi /opt/tomcat/webapps/host-manager/META-INF/context.xml  #comment valve
+       vi /opt/tomcat/webapps/manager/META-INF/context.xml  #comment valve
+       /opt/tomcat/webapps/ # create folder myapps and add your files
